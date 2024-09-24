@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathCalc - Fast-Paced Calculation Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            background-color: #4B0082;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1rem;
+        }
+
+        .cover {
+            background-image: url('/api/placeholder/1200/400');
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .cover h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cover p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background-color: #4B0082;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .feature img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .about {
+            background-color: #4B0082;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .calculator {
+            padding-left: 100;
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(83, 52, 131, 0.2);
+            width: 500px;
+            height: 320px;
+            margin: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .display {
+            background-color: #f0f0ff;
+            color: #4b0082;
+            font-size: 2em;
+            padding: 15px;
+            text-align: right;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            background-color: #8a2be2;
+            border: none;
+            color: #ffffff;
+            padding: 10px 0; /* Adjusted padding for better alignment */
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #9b4dff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .equals {
+            background-color: #4169e1;
+            grid-column: span 1; /* Changed to span 1 column */
+        }
+
+        .equals:hover {
+            background-color: #6495ed;
+        }
+
+        .operator {
+            background-color: #6a5acd;
+        }
+
+        .operator:hover {
+            background-color: #7b68ee;
+        }
+
+        .function {
+            background-color: #9370db;
+        }
+
+        .function:hover {
+            background-color: #a082ee;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Dark mode styles */
+        .dark-mode {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+
+        .dark-mode header {
+            background-color: #222;
+        }
+
+        .dark-mode .cover {
+            color: #ddd;
+        }
+
+        .dark-mode .calculator {
+            background-color: #444;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .display {
+            background-color: #555;
+            color: #fff;
+        }
+
+        .dark-mode button {
+            background-color: #5c4d9a;
+        }
+
+        .dark-mode button:hover {
+            background-color: #7b68ee;
+        }
+
+        .dark-mode .about {
+            background-color: #222;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        async function calculate() {
+            const x = parseFloat(document.getElementById('x').value);
+            const y = parseFloat(document.getElementById('y').value);
+            const operation = document.getElementById('operation').value;
+
+            try {
+                const response = await axios.post('/api/calculate', { operation, x, y });
+                document.getElementById('result').textContent = `Result: ${response.data.result}`;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').textContent = 'An error occurred';
+            }
+        }
+
+        function appendValue(value) {
+            const display = document.getElementById('display');
+            if (display.textContent === '0') {
+                display.textContent = value;
+            } else {
+                display.textContent += value;
+            }
+        }
+
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            const button = document.getElementById('dark-mode-button');
+            button.textContent = body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <div>MathCalc</div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="mathcalc.html">Sign In</a>
+            <a href="mathcalc.html">Sign Up</a>
+        </nav>
+        <button id="dark-mode-button" onclick="toggleDarkMode()">Dark Mode</button>
+    </header>
+
+    <section class="cover">
+        
+        <div class="container">
+            <div class="calculator">
+                <h2>Quick Calculator</h2>
+                <div class="display" id="display">0</div>
+                <div class="buttons">
+                    <button onclick="appendValue('7')">7</button>
+                    <button onclick="appendValue('8')">8</button>
+                    <button onclick="appendValue('9')">9</button>
+                    <button class="operator" onclick="appendValue('/')">÷</button>
+                    <button onclick="appendValue('4')">4</button>
+                    <button onclick="appendValue('5')">5</button>
+                    <button onclick="appendValue('6')">6</button>
+                    <button class="operator" onclick="appendValue('*')">×</button>
+                    <button onclick="appendValue('1')">1</button>
+                    <button onclick="appendValue('2')">2</button>
+                    <button onclick="appendValue('3')">3</button>
+                    <button class="operator" onclick="appendValue('-')">-</button>
+                    <button onclick="appendValue('0')">0</button>
+                    <button onclick="appendValue('.')">.</button>
+                    <button class="equals" onclick="calculate()">=</button>
+                    <button class="operator" onclick="appendValue('+')">+</button>
+                </div>
+                
+            </div>
+            <a href="mathcalc.html" class="btn">Try MathCalc Now</a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="feature">
+            <img src="/api/placeholder/300/200" alt="Fast Calculations">
+            <h2>Fast Calculations</h2>
+            <p>Perform calculations quickly and efficiently.</p>
+        </div>
+        <div class="feature">
+            <img src="/api/placeholder/300/200" alt="Mathematical Concepts">
+            <h2>Mathematical Concepts</h2>
+            <p>Explore key mathematical concepts through interactive examples.</p>
+        </div>
+        <div class="feature">
+            <img src="/api/placeholder/300/200" alt="Real-Time Feedback">
+            <h2>Real-Time Feedback</h2>
+            <p>Receive instant results and detailed explanations for your calculations.</p>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About MathCalc</h2>
+        <p>MathCalc was created to enhance the learning experience in mathematics. Whether you're a student, educator, or a math enthusiast, our platform is designed to help you tackle mathematical challenges with ease and efficiency.</p>
+        <p>For a more personalized experience and to receive tailored mathematics assistance, please <a href="mathcalc.html" style="color: #FFD700;">sign in</a>.</p>
+    </section>
+
+</body>
+
+</html>
