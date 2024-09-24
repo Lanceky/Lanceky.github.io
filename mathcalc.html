@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functional Royal Purple Blue Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0e0ff;
+            color: #4b0082;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header {
+            background-color: #8a2be2;
+            color: #ffffff;
+            padding: 1rem;
+            text-align: center;
+        }
+        .nav {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .nav a {
+            color: #ffffff;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .nav a:hover {
+            color: #9b4dff;
+        }
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+            flex: 1;
+            overflow: auto;
+        }
+        .calculator {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(83, 52, 131, 0.2);
+            margin-right: 2rem;
+        }
+        .display {
+            background-color: #f0f0ff;
+            color: #4b0082;
+            font-size: 2em;
+            padding: 15px;
+            text-align: right;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+        button {
+            background-color: #8a2be2;
+            border: none;
+            color: #ffffff;
+            padding: 12px 5px;
+            font-size: 0.9em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #9b4dff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        .equals {
+            background-color: #4169e1;
+        }
+        .equals:hover {
+            background-color: #6495ed;
+        }
+        .operator {
+            background-color: #6a5acd;
+        }
+        .operator:hover {
+            background-color: #7b68ee;
+        }
+        .function {
+            background-color: #9370db;
+        }
+        .function:hover {
+            background-color: #a082ee;
+        }
+        .quick-links {
+            flex: 1;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(83, 52, 131, 0.2);
+        }
+        .quick-links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .quick-links li {
+            margin-bottom: 0.5rem;
+        }
+        .quick-links a {
+            color: #8a2be2;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .quick-links a:hover {
+            color: #9b4dff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <a href="index.html">Sign Out</a>
+            <a href="#">About Us</a>
+        </div>
+        <h1>Welcome to MathCalc!</h1>
+        <p>Your one-stop solution for all mathematical calculations.</p>
+    </header>
+    
+    <div class="content-wrapper">
+        <div class="calculator">
+            <div class="display" id="display">0</div>
+            <div class="buttons">
+                <button class="function" onclick="inputFunction('Rad')">Rad</button>
+                <button class="function" onclick="inputFunction('Deg')">Deg</button>
+                <button class="function" onclick="calculateFactorial()">x!</button>
+                <button class="operator" onclick="inputOperator('(')">(</button>
+                <button class="operator" onclick="inputOperator(')')">)</button>
+                <button class="operator" onclick="inputOperator('%')">%</button>
+                <button class="function" onclick="clearDisplay()">AC</button>
+                <button class="function" onclick="inputFunction('Inv')">Inv</button>
+                <button class="function" onclick="inputFunction('sin')">sin</button>
+                <button class="function" onclick="inputFunction('ln')">ln</button>
+                <button onclick="inputDigit(7)">7</button>
+                <button onclick="inputDigit(8)">8</button>
+                <button onclick="inputDigit(9)">9</button>
+                <button class="operator" onclick="inputOperator('/')">÷</button>
+                <button class="function" onclick="inputFunction('π')">π</button>
+                <button class="function" onclick="inputFunction('cos')">cos</button>
+                <button class="function" onclick="inputFunction('log')">log</button>
+                <button onclick="inputDigit(4)">4</button>
+                <button onclick="inputDigit(5)">5</button>
+                <button onclick="inputDigit(6)">6</button>
+                <button class="operator" onclick="inputOperator('*')">×</button>
+                <button class="function" onclick="inputFunction('e')">e</button>
+                <button class="function" onclick="inputFunction('tan')">tan</button>
+                <button class="function" onclick="inputFunction('√')">√</button>
+                <button onclick="inputDigit(1)">1</button>
+                <button onclick="inputDigit(2)">2</button>
+                <button onclick="inputDigit(3)">3</button>
+                <button class="operator" onclick="inputOperator('-')">-</button>
+                <button class="function" onclick="inputFunction('Ans')">Ans</button>
+                <button class="function" onclick="inputFunction('EXP')">EXP</button>
+                <button class="function" onclick="inputOperator('^')">x<sup>y</sup></button>
+                <button onclick="inputDigit(0)">0</button>
+                <button onclick="inputOperator('.')">.</button>
+                <button class="equals" onclick="calculateResult()">=</button>
+                <button class="operator" onclick="inputOperator('+')">+</button>
+            </div>
+        </div>
+
+        <div class="quick-links">
+            <h2>Mathematics Courses</h2>
+            <ul>
+                <li><a href="https://tutorial.math.lamar.edu/Classes/Alg/Alg.aspx">Introduction to Algebra</a></li>
+                <li><a href="https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx">Calculus 1</a></li>
+                <li><a href="https://tutorial.math.lamar.edu/Classes/CalcII/CalcII.aspx">Calculus 2</a></li>
+                <li><a href="https://tutorial.math.lamar.edu/Classes/CalcIII/CalcIII.aspx">Calculus 3</a></li>
+                <li><a href="https://tutorial.math.lamar.edu/Extras/AlgebraTrigReview/AlgebraTrig.aspx">Algebra and Trig Review</a></li>
+                <li><a href="https://tutorial.math.lamar.edu/Extras/CommonErrors/CommonMathErrors.aspx">Common Math Errors</a></li>
+                <li><a href="https://tutorial.math.lamar.edu/Extras/ComplexPrimer/ComplexNumbers.aspx">Complex Number Prime</a></li>
+                <li><a href="https://tutorial.math.lamar.edu/Extras/StudyMath/HowToStudyMath.aspx">How to study Math</a></li>
+                <p><em>DISCLAIMER!</em>The Above links are attributed to Paul Dawkins work on Mathematics concepts </p>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let currentInput = '0';
+        let result = null;
+        let display = document.getElementById('display');
+
+        function inputDigit(digit) {
+            if (currentInput === '0') {
+                currentInput = digit.toString();
+            } else {
+                currentInput += digit.toString();
+            }
+            updateDisplay();
+        }
+
+        function inputOperator(op) {
+            currentInput += ` ${op} `;
+            updateDisplay();
+        }
+
+        function inputFunction(func) {
+            if (func === 'π') {
+                currentInput += Math.PI;
+            } else if (func === 'e') {
+                currentInput += Math.E;
+            } else {
+                currentInput += `${func}(`;
+            }
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            result = null;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function calculateResult() {
+            try {
+                currentInput = currentInput.replace('π', Math.PI).replace('e', Math.E);
+                result = eval(currentInput);
+                display.textContent = result;
+                currentInput = result.toString();
+            } catch (error) {
+                display.textContent = 'Error';
+            }
+        }
+
+        function calculateFactorial() {
+            const num = parseInt(currentInput.trim());
+            let factorial = 1;
+            for (let i = 2; i <= num; i++) {
+                factorial *= i;
+            }
+            currentInput = factorial.toString();
+            updateDisplay();
+        }
+    </script>
+</body>
+</html>
